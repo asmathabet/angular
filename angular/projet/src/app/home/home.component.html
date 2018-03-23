@@ -1,0 +1,59 @@
+
+<!--<ng-content></ng-content> pour autoriser au composant appelant d'ajouter un code externe à partir du composant appelant entre les balises "<app-home></app-home>"-->
+<div class="container color-dark">
+  <div class="col">
+    <p>Add a Todo list item</p>
+  </div>
+  <div class="col">
+    <p>Your Todo list ({{cpt}})</p>
+  </div>
+</div>
+
+<div class="container color-light">
+  <div class="col">
+    <p class="sm">Use this form below to add Todo Tasks </p>
+    <form>
+      <input type="text" class="txt" name="item" placeholder="Task todo..." [(ngModel)]="task">
+      
+      <input type="submit" class="btn" name="item" [value]= "btnTxt" (click)="ajoutItem()" >
+    </form>
+        
+  </div>
+  
+  <div class="col" *ngIf="cpt !=0; else vide">
+
+    <ul *ngFor="let task of tasks" [ngSwitch]="task.charAt(0)" >
+      <li class="life-container" *ngSwitchCase="'A'" (click)="supprimeItem(task)">{{task}}</li>
+      <li class="life-container" *ngSwitchCase="'E'" (click)="supprimeItem(task)">{{task}}</li>
+      <li class="life-container" *ngSwitchCase="'I'" (click)="supprimeItem(task)">{{task}}</li>
+    </ul>
+    
+    <!--<ul *ngFor="let task of tasks" >
+      <li class="life-container" (click)="supprimeItem(task)">{{task}}</li> 
+    </ul>--> 
+
+    <br>
+    <span [ngStyle]="{color:getColor()}">
+      {{task}} 
+      <br>
+      {{task.length}}
+    </span>
+  </div>
+  
+  <ng-template #vide>
+    <div class="col">
+      <p>Aucun task ajouté!</p>
+    <br>
+    <span [ngStyle]="{color:getColor()}">
+      {{task}}
+      <br>
+      {{task.length}}
+    </span>
+    <!--
+    <span [ngClass]="{arriereplan:b}">
+        {{task}}
+    </span>
+  -->
+  </div>
+</ng-template>
+</div>
